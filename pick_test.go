@@ -2,6 +2,7 @@ package main
 
 import (
 	"reflect"
+	"fmt"
 	"testing"
 )
 
@@ -23,6 +24,22 @@ func TestPick(t *testing.T) {
 	// it should return the number of strings requested
 	if actualLength != expectedLength {
 		t.Errorf("expected slice of length %v, got %v", expectedLength,actualLength)
+	}
+}
+
+func TestRandomSubset(t *testing.T) {
+	set := []string{"cat","dog","mouse","bird","tiger"}
+	actual := randomSubset(set,2)
+	fmt.Println(actual)
+}
+
+func TestGenerateIndexSet(t *testing.T) {
+	set := []string{"cat","dog","mouse","bird","tiger"}	
+	expected := []int{0,1,2,3,4}
+	actual := generateIndexSet(set)
+
+	if !reflect.DeepEqual(actual,expected) {
+		t.Errorf("expected %v, got %v", expected, actual)
 	}
 }
 
