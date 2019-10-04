@@ -1,47 +1,32 @@
-package main
+package luckydip
 
 import (
 	"reflect"
-	"fmt"
 	"testing"
 )
 
-func TestPick(t *testing.T) {
-	actual := Pick(3)
-	expected := []string{"wot","not","dot"}
+func TestRandomSubset(t *testing.T) {
+	set := []string{"one","two","three","four","five"}
 
-	expectedType := reflect.TypeOf(expected)
+	actual := RandomSubset(set,3)
 	actualType := reflect.TypeOf(actual)
-
-	expectedLength := 3
 	actualLength := len(actual)
 
-	// it should return a slice of strings
+	expectedType := reflect.TypeOf(set)
+	expectedLength := 3
+
+	//it should return a slice of the same type that was supplied
 	if actualType != expectedType {
-		t.Errorf("expected %v got %v", expectedType, actualType)
+		t.Errorf("expected %v, got %v", expectedType, actualType)
 	}
 
-	// it should return the number of strings requested
+	//it should return a slice of the requested length
 	if actualLength != expectedLength {
-		t.Errorf("expected slice of length %v, got %v", expectedLength,actualLength)
+		t.Errorf("expected %v, got %v", expectedLength, actualLength)
 	}
 }
 
-func TestRandomSubset(t *testing.T) {
-	set := []string{"cat","dog","mouse","bird","tiger"}
-	actual := randomSubset(set,2)
-	fmt.Println(actual)
-}
 
-func TestGenerateIndexSet(t *testing.T) {
-	set := []string{"cat","dog","mouse","bird","tiger"}	
-	expected := []int{0,1,2,3,4}
-	actual := generateIndexSet(set)
-
-	if !reflect.DeepEqual(actual,expected) {
-		t.Errorf("expected %v, got %v", expected, actual)
-	}
-}
 
 /* needs to
  - return random selection of required length from pool

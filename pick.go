@@ -1,38 +1,16 @@
-package main
+/* 
+Package luckydip selects a random selection of items from a larger set
+*/
+package luckydip
 
 import(
-	"fmt"
 	"math/rand"
 	"time"
 )
 
-func main() {
-	fmt.Println(Pick(2))
-}
-
-func Pick(num int) []string {
-	pool := []string{"cat","dog","bat","car"}
-	return randomSubset(pool,num)
-}
-
-func randomSubset(set []string, number int) []string {	
-	results := make([]string,0)
+// RandomSubset takes a slice and returns a random subset of the requested length
+func RandomSubset(set []string, number int) []string {		
 	rand.Seed(time.Now().UnixNano())
-
-	for i := 0; i < number; i++ {	
-		randomChoice := set[rand.Intn(len(set))]
-		results = append(results, randomChoice)		
-	}
-
-	return results
-}
-
-func generateIndexSet(set []string) []int {
-	indicies := make([]int,len(set))
-
-	for i := range set {
-		indicies[i] = i
-	}
-
-	return indicies
+	rand.Shuffle(len(set), func(i, j int) { set[i], set[j] = set[j], set[i]})
+	return set[:number]	
 }
