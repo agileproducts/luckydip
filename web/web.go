@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -12,7 +13,21 @@ import (
 )
 
 func main() {
-	dataset := []string{"one","two","three","four","five"}
+	dataset := []string{}
+
+	// horrible, must do properly
+	csvFile, err := os.Open("web/dataset.csv")
+	if err != nil {
+ 		panic(err)
+	}
+	defer csvFile.Close()
+	csvReader := csv.NewReader(csvFile)
+	rows, err := csvReader.ReadAll()
+	
+	for _,v := range rows {
+		dataset = append(dataset,v[0])
+	}
+
 	handler := &luckydipInstance{sourceData:&dataset}
 
 	router := mux.NewRouter()
